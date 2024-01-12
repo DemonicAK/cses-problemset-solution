@@ -1,6 +1,6 @@
 /*
-Problem Name:
-Problem Link:
+Problem Name: bit strings
+Problem Link: https://cses.fi/problemset/task/1617
 Author: Arijit Kar (DemonicAK)
 */
 //----------HEADER----------
@@ -42,6 +42,7 @@ template <typename T>
 using Multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 //----------MACROS----------
 typedef long long ll;
+#define int long long
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -222,14 +223,15 @@ ll power(ll x, ll y)
     {
         // If y is odd, multiply x with result
         if (y & 1)
-            res = (res * x) % mod;
+            res = (res * x)%mod;
 
         // y must be even now
-        y = y >> 1;        // y = y/2
-        x = (x * x) % mod; // Change x to x^2
+        y = y >> 1; // y = y/2
+        x = (x * x)%mod;  // Change x to x^2
     }
     return res;
 }
+
 //----------SOLUTION----------
 int rec(int n)
 {
@@ -239,9 +241,9 @@ int rec(int n)
 }
 void solve()
 {
-    int n;
-    see(n);
-
+    ll n;see(n);
+    ll ans = power(2, n) % mod;
+    cout << ans << "\n";
     // rec(n);
 }
 //----------MAIN----------
@@ -250,7 +252,7 @@ int32_t main()
     fastIO;
     usaco();
     int T = 1;
-    cin >> T;
+    // cin >> T;
     while (T--)
     {
         solve();

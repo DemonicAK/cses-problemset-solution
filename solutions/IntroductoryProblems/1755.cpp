@@ -1,6 +1,6 @@
 /*
-Problem Name:
-Problem Link:
+Problem Name: palindrome reorder
+Problem Link: https://cses.fi/problemset/task/1755
 Author: Arijit Kar (DemonicAK)
 */
 //----------HEADER----------
@@ -42,6 +42,7 @@ template <typename T>
 using Multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 //----------MACROS----------
 typedef long long ll;
+#define int long long
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -119,7 +120,7 @@ typedef set<pll> spll;
 #define pb push_back
 #define F first
 #define S second
-#define mp make_pair
+// #define mp make_pair
 // --------UNKONWN-------
 #define gc getchar_unlocked
 #define setpr(x) cout << setprecision(x) << fixed
@@ -127,7 +128,6 @@ typedef set<pll> spll;
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
     cout.tie(NULL);
-// #pragma GCC target("AVX")
 //----------CONSTANTS----------
 const ld PI = acos(-1);
 const ld EPS = 1e-9;
@@ -203,33 +203,7 @@ inline string lowercase(string s)
         s[i] = s[i] - 'A' + 'a';
     return s;
 }
-ll nCr(ll n, ll r)
-{
-    double sum = 1;
-    // Calculate the value of n choose r using the binomial coefficient formula
-    for (int i = 1; i <= r; i++)
-    {
-        sum = (sum * (n - r + i) / i);
-    }
-    return (ll)sum;
-}
-ll power(ll x, ll y)
-{
-    /* Iterative Function to calculate (x^y) in O(logy) */
-    ll res = 1; // Initialize result
 
-    while (y > 0)
-    {
-        // If y is odd, multiply x with result
-        if (y & 1)
-            res = (res * x) % mod;
-
-        // y must be even now
-        y = y >> 1;        // y = y/2
-        x = (x * x) % mod; // Change x to x^2
-    }
-    return res;
-}
 //----------SOLUTION----------
 int rec(int n)
 {
@@ -239,8 +213,62 @@ int rec(int n)
 }
 void solve()
 {
-    int n;
-    see(n);
+    string s;
+    see(s);
+    int n = SIZE(s);
+    map<char, int> mp;
+    for (auto &ch : s)
+        mp[ch]++;
+    string ans = "";    
+    if (n % 2 == 0)
+    {
+        for (auto it : mp)
+        {
+            if (it.second % 2 == 1)
+            {
+                cout << "NO SOLUTION";
+                return;
+            }
+            int cnt = 0;
+            while (cnt < it.second / 2)
+            {
+                ans += it.first;
+                cnt++;
+            }
+        }
+        string rev(ans);
+        REVERSE(rev);
+        cout << ans + rev;
+        return;
+    }
+    else
+    {
+        int oddcnt = 0;
+        string fmiddle = "";
+        for (auto it : mp)
+        {
+            if (it.second % 2 == 1)
+            {
+                oddcnt++;
+                fmiddle = it.first;
+                if (oddcnt > 1)
+                {
+                    cout << "NO SOLUTION";
+                    return;
+                }
+            }
+            int cnt = 0;
+            while (cnt < it.second / 2)
+            {
+                ans += it.first;
+                cnt++;
+            }
+        }
+        string rev(ans);
+        REVERSE(rev);
+        cout << ans + fmiddle + rev;
+        return;
+    }
 
     // rec(n);
 }
@@ -250,7 +278,7 @@ int32_t main()
     fastIO;
     usaco();
     int T = 1;
-    cin >> T;
+    // cin >> T;
     while (T--)
     {
         solve();

@@ -1,6 +1,6 @@
 /*
-Problem Name:
-Problem Link:
+Problem Name:  coinpiles
+Problem Link: https://cses.fi/problemset/task/1754
 Author: Arijit Kar (DemonicAK)
 */
 //----------HEADER----------
@@ -42,6 +42,7 @@ template <typename T>
 using Multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 //----------MACROS----------
 typedef long long ll;
+#define int long long
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -127,7 +128,6 @@ typedef set<pll> spll;
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
     cout.tie(NULL);
-// #pragma GCC target("AVX")
 //----------CONSTANTS----------
 const ld PI = acos(-1);
 const ld EPS = 1e-9;
@@ -203,33 +203,7 @@ inline string lowercase(string s)
         s[i] = s[i] - 'A' + 'a';
     return s;
 }
-ll nCr(ll n, ll r)
-{
-    double sum = 1;
-    // Calculate the value of n choose r using the binomial coefficient formula
-    for (int i = 1; i <= r; i++)
-    {
-        sum = (sum * (n - r + i) / i);
-    }
-    return (ll)sum;
-}
-ll power(ll x, ll y)
-{
-    /* Iterative Function to calculate (x^y) in O(logy) */
-    ll res = 1; // Initialize result
 
-    while (y > 0)
-    {
-        // If y is odd, multiply x with result
-        if (y & 1)
-            res = (res * x) % mod;
-
-        // y must be even now
-        y = y >> 1;        // y = y/2
-        x = (x * x) % mod; // Change x to x^2
-    }
-    return res;
-}
 //----------SOLUTION----------
 int rec(int n)
 {
@@ -237,11 +211,18 @@ int rec(int n)
 
     return 0;
 }
+
 void solve()
 {
-    int n;
-    see(n);
-
+    ll a, b;
+    see(a, b);
+    ll x = 2 * a - b;
+    ll y = 2 * b - a;
+    if (x >= 0 && x % 3 == 0 && y >= 0 && y % 3 == 0)
+        cout << "YES";
+    else
+        cout << "NO";
+    return;
     // rec(n);
 }
 //----------MAIN----------

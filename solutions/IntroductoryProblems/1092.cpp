@@ -1,8 +1,10 @@
 #include <bits/stdc++.h> // Include every standard library
 using namespace std;
 typedef long long ll;
-//   https://cses.fi/problemset/task/1072
-//  two knights
+
+// https://cses.fi/problemset/task/1092
+// two sets
+
 void usaco(string filename = "")
 {
     if (filename.size() > 0)
@@ -21,7 +23,7 @@ void usaco(string filename = "")
 #endif
     }
 }
-// end of template
+
 ll nCr(ll n, ll r)
 {
     double sum = 1;
@@ -30,25 +32,49 @@ ll nCr(ll n, ll r)
     {
         sum = sum * (n - r + i) / i;
     }
-    return (ll)sum ;
+    return (ll)sum;
 }
+
+// end of template
 
 void solve(int t)
 {
-    int n;
+    ll n;
     cin >> n;
-
-    for (int i = 1; i <= n; i++)
+    ll sum = (n * (n + 1)) / 2;
+    if (sum % 2 == 0)
     {
-        if (n == 1)
-            cout << 0 << endl;
-        else
+        cout << "YES\n";
+
+        ll req = sum / 2;
+        ll curr = 0;
+        vector<int> v(n + 1, 0);
+        for (int i = n; i >= 1; i--)
         {
-            // cout<<i*i<<"\n";
-            ll val = nCr(i*i , 2) - 4 * (i - 1) * (i -2);
-            cout << val << "\n";
+            if (curr + i <= req)
+            {
+                curr += i;
+                v[i] = 1;
+            }
         }
+        ll sumi = accumulate(v.begin(), v.end(), 0);
+        cout << sumi << "\n";
+        for (int i = 1; i <= n; i++)
+            if (v[i] == 1)
+                cout << i << " ";
+        cout << "\n";
+        cout << n - sumi << "\n";
+        for (int i = 1; i <= n; i++)
+            if (v[i] == 0)
+                cout << i << " ";
+        cout << "\n";
     }
+    else
+    {
+        cout << "NO\n";
+    }
+
+ 
 
     return;
 }

@@ -1,8 +1,8 @@
 #include <bits/stdc++.h> // Include every standard library
 using namespace std;
 typedef long long ll;
-//   https://cses.fi/problemset/task/1072
-//  two knights
+//  https://cses.fi/problemset/task/1618
+//  trailing zeroes
 void usaco(string filename = "")
 {
     if (filename.size() > 0)
@@ -21,7 +21,7 @@ void usaco(string filename = "")
 #endif
     }
 }
-// end of template
+
 ll nCr(ll n, ll r)
 {
     double sum = 1;
@@ -30,26 +30,51 @@ ll nCr(ll n, ll r)
     {
         sum = sum * (n - r + i) / i;
     }
-    return (ll)sum ;
+    return (ll)sum;
+}
+ll power(ll x, ll y)
+{
+    /* Iterative Function to calculate (x^y) in O(logy) */
+    ll res = 1; // Initialize result
+
+    while (y > 0)
+    {
+        // If y is odd, multiply x with result
+        if (y & 1)
+            res = res * x;
+
+        // y must be even now
+        y = y >> 1; // y = y/2
+        x = x * x;  // Change x to x^2
+    }
+    return res;
 }
 
+// end of template
+
+int fivecount(ll n)
+{
+    int count = 0;
+    while (n % 5 == 0)
+    {
+        count++;
+        n /= 5;
+    }
+    return count;
+}
 void solve(int t)
 {
-    int n;
+    ll n;
     cin >> n;
-
-    for (int i = 1; i <= n; i++)
+    int num = 5;
+    int sum = 0;
+    while (num <= n)
     {
-        if (n == 1)
-            cout << 0 << endl;
-        else
-        {
-            // cout<<i*i<<"\n";
-            ll val = nCr(i*i , 2) - 4 * (i - 1) * (i -2);
-            cout << val << "\n";
-        }
+        sum += fivecount(num);
+        num += 5;
     }
 
+    cout << sum << "\n";
     return;
 }
 
